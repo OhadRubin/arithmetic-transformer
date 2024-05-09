@@ -147,7 +147,7 @@ class RotaryEmbeddingTransformerAlbert(nn.Module):
           super().__init__()
           self.layer =  RotaryEmbeddingTransformerLayer(d_model, num_heads, dim_feedforward, dropout)
           self.n_layers= n_layers
-    def forward(self, src):
+    def forward(self, src, mask,is_causal):
         for i in range(self.n_layers):
           src = self.layer(src)
         return src
