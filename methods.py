@@ -37,6 +37,9 @@ def apply_rope(model, x):
 
 
 
+
+
+
 class RotaryEmbeddingTransformerLayer(nn.Module):
     def __init__(self, d_model, num_heads, dim_feedforward, dropout):
         super().__init__()
@@ -138,6 +141,16 @@ class RotaryEmbeddingTransformerLayer(nn.Module):
 
         return src
 
+
+class RotaryEmbeddingTransformerAlbert(nn.Module):
+    def __init__(self, d_model, num_heads, dim_feedforward, dropout, n_layers):
+          super().__init__()
+          self.layer =  RotaryEmbeddingTransformerLayer(d_model, num_heads, dim_feedforward, dropout)
+          self.n_layers= n_layers
+    def forward(self, src):
+        for i in range(self.n_layers):
+          src = self.layer(src)
+        return src
 
 class AlibiTransformerLayer(nn.Module):
     def __init__(self, d_model, num_heads, dim_feedforward, dropout, level):
