@@ -122,6 +122,10 @@ class AdditionModel(nn.Module):
                     for _ in range(num_layers)
                 ]
             )
+        elif kind== "transformer-rope-albert":
+          self.model = methods.RotaryEmbeddingTransformerAlbert(
+                        hidden_size, num_heads, ffw_size, dropout,num_layers
+                    )
         elif kind == "transformer-alibi":
             self.model = nn.Sequential(
                 *[
